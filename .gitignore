@@ -1,0 +1,6 @@
+.gradle
+/build/
+.idea/
+target/
+src/test/resources/config/local/
+failed_screenshots/
