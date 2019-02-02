@@ -1,19 +1,15 @@
 package utils;
 
-import io.appium.java_client.remote.AutomationName;
-import io.appium.java_client.remote.IOSMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Properties;
 
 public final class PropertiesManager {
     private static final String APPIUM_LOG_LEVEL = "APPIUM_LOG_LEVEL";
 
-    private static final String AVD = "AVD";
     private static final String DEVICE_NAME = "DEVICE_NAME";
     private static final String PLATFORM_VERSION = "PLATFORM_VERSION";
     private static final String PLATFORM_NAME = "PLATFORM_NAME";
@@ -65,14 +61,6 @@ public final class PropertiesManager {
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, getValueForKey(PLATFORM_NAME));
         capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, getPlatformVersion());
         capabilities.setCapability(MobileCapabilityType.CLEAR_SYSTEM_FILES, true);
-
-        if (!isOnIOS()) {
-            capabilities.setCapability(AVD.toLowerCase(Locale.getDefault()), getValueForKey(AVD));
-        } else {
-            capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
-            capabilities.setCapability(IOSMobileCapabilityType.WDA_LOCAL_PORT, NetworkHelper.getFreeLocalPort());
-            capabilities.setCapability(IOSMobileCapabilityType.CONNECT_HARDWARE_KEYBOARD, false);
-        }
 
         final int fiveMinutesInSeconds = 300;
         capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, fiveMinutesInSeconds);

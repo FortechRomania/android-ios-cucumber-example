@@ -12,24 +12,26 @@ import utils.Platform;
 public class AcquaintanceDetailsPage {
 
     // region Identifiers
-    private static final String ANDROID_ACQUAINTANCE_EDIT_BUTTON = "new UiSelector().resourceIdMatches(\".*id/acquaintanceEditButton.*\")";
+    private static final String ANDROID_ACQUAINTANCE_EDIT_BUTTON = "acquaintanceEditButton";
     private static final String IOS_ACQUAINTANCE_EDIT_BUTTON = "Edit";
-    private static final String ANDROID_ACQUAINTANCE_DELETE_BUTTON = "new UiSelector().resourceIdMatches(\".*id/acquaintanceDeleteButton.*\")";
+
+    private static final String ANDROID_ACQUAINTANCE_DELETE_BUTTON = "acquaintanceDeleteButton";
     private static final String IOS_ACQUAINTANCE_DELETE_BUTTON = "Delete";
-    private static final String ANDROID_TOOLBAR = "new UiSelector().resourceIdMatches(\".*id/toolbar.*\")";
-    private static final String IOS_TOOLBAR = "//XCUIElementTypeNavigationBar[1]";
+
+    private static final String ANDROID_TOOLBAR = "toolbar";
+    private static final String IOS_TOOLBAR = "XCUIElementTypeNavigationBar";
     // endregion
 
-    @AndroidFindBy(uiAutomator = ANDROID_ACQUAINTANCE_EDIT_BUTTON)
+    @AndroidFindBy(id = ANDROID_ACQUAINTANCE_EDIT_BUTTON)
     @iOSFindBy(accessibility = IOS_ACQUAINTANCE_EDIT_BUTTON)
     private MobileElement acquaintanceEditButtonElement;
 
-    @AndroidFindBy(uiAutomator = ANDROID_ACQUAINTANCE_DELETE_BUTTON)
+    @AndroidFindBy(id = ANDROID_ACQUAINTANCE_DELETE_BUTTON)
     @iOSFindBy(accessibility = IOS_ACQUAINTANCE_DELETE_BUTTON)
     private MobileElement acquaintanceDeleteButtonElement;
 
-    @AndroidFindBy(uiAutomator = ANDROID_TOOLBAR)
-    @iOSFindBy(xpath = IOS_TOOLBAR)
+    @AndroidFindBy(id = ANDROID_TOOLBAR)
+    @iOSFindBy(className = IOS_TOOLBAR)
     private MobileElement toolbarElement;
 
     public AcquaintanceDetailsPage(AppiumDriver driver) {

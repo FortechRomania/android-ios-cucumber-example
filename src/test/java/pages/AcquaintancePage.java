@@ -15,17 +15,18 @@ import java.util.stream.Collectors;
 public class AcquaintancePage {
 
     // region Identifiers
-    private static final String ANDROID_ADD_ACQUAINTANCE_BUTTON = "new UiSelector().resourceIdMatches(\".*id/acquaintanceListFloatingActionButton.*\")";
+    private static final String ANDROID_ADD_ACQUAINTANCE_BUTTON = "acquaintanceListFloatingActionButton";
     private static final String IOS_ADD_ACQUAINTANCE_BUTTON = "Add";
-    private static final String ANDROID_ACQUAINTANCES_LIST = "new UiSelector().resourceIdMatches(\".*id/nameTextView.*\")";
-    private static final String IOS_ACQUAINTANCES_LIST = "AcquaintanceCellNameLabel";
+
+    private static final String ANDROID_ACQUAINTANCES_LIST = "nameTextView";
+    private static final String IOS_ACQUAINTANCES_LIST = "NameLabel";
     // endregion
 
-    @AndroidFindBy(uiAutomator = ANDROID_ADD_ACQUAINTANCE_BUTTON)
+    @AndroidFindBy(id = ANDROID_ADD_ACQUAINTANCE_BUTTON)
     @iOSFindBy(accessibility = IOS_ADD_ACQUAINTANCE_BUTTON)
     private MobileElement addAcquaintanceButtonElement;
 
-    @AndroidFindBy(uiAutomator = ANDROID_ACQUAINTANCES_LIST)
+    @AndroidFindBy(id = ANDROID_ACQUAINTANCES_LIST)
     @iOSFindBy(accessibility = IOS_ACQUAINTANCES_LIST)
     private List<MobileElement> acquaintanceElements;
 
@@ -39,11 +40,15 @@ public class AcquaintancePage {
                 .collect(Collectors.toList());
     }
 
-    public List<String> getVisibleAcquaintancesNames() {
-        return acquaintanceElements.stream()
-                .filter(RemoteWebElement::isDisplayed)
-                .map(RemoteWebElement::getText)
-                .collect(Collectors.toList());
+    public boolean isAcquaintanceWithNameDisplayed(String formattedAcquaintanceName) {
+        List<String> acquaintancesNames = getAcquaintancesNames();
+
+        if (acquaintancesNames.contains(formattedAcquaintanceName))
+        {
+            return  acquaintanceElements.get(acquaintancesNames.indexOf(formattedAcquaintanceName)).isDisplayed();
+        }
+
+        return false;
     }
 
     public void tapOnAddAcquaintanceButton() {

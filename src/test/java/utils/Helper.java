@@ -3,6 +3,8 @@ package utils;
 import cucumber.api.Scenario;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
@@ -86,7 +88,7 @@ public final class Helper {
     }
 
     private static void scrollDownFullScreen() {
-        final double heightMultiplier = 0.9;
+        final double heightMultiplier = 0.8;
         Dimension dimensions = getWindowSize();
         int centerX = dimensions.getWidth() / 2;
 
@@ -94,7 +96,7 @@ public final class Helper {
         int scrollEnd = 0;
 
         try {
-            final int swipeDurationInMillis = 200;
+            final int swipeDurationInMillis = 1200;
             swipe(centerX, scrollStart, centerX, scrollEnd, swipeDurationInMillis);
         } catch (WebDriverException webDriverException) {
             webDriverException.printStackTrace();
@@ -109,10 +111,7 @@ public final class Helper {
         TouchAction touchAction = new TouchAction(getDriver());
         Duration swipeDuration = Duration.ofMillis(duration);
 
-        int moveToX = Platform.isOnIOS() ? endx - startx : endx;
-        int moveToY = Platform.isOnIOS() ? endy - starty : endy;
-
-        touchAction.press(startx, starty).waitAction(swipeDuration).moveTo(moveToX, moveToY).release();
+        touchAction.press(PointOption.point(startx, starty)).waitAction(WaitOptions.waitOptions(swipeDuration)).moveTo(PointOption.point(endx, endy)).release();
 
         touchAction.perform();
     }

@@ -1,12 +1,10 @@
 package utils;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
-import io.appium.java_client.service.local.flags.AndroidServerFlag;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -47,8 +45,12 @@ public final class TestBase {
             startService();
         }
 
-        closeDriver();
-        startDriver();
+        if (driver == null) {
+            startDriver();
+        }
+        else {
+            driver.resetApp();
+        }
     }
 
     public void restartService() {
@@ -61,16 +63,11 @@ public final class TestBase {
     }
 
     private void startService() {
-        int appiumPort = NetworkHelper.getFreeLocalPort();
-        int androidBootstrapPort = NetworkHelper.getFreeLocalPort();
-
         String logLevel = PropertiesManager.getInstance().getAppiumLogLevel();
 
-        service = new AppiumServiceBuilder().usingPort(appiumPort)
+        service = new AppiumServiceBuilder().usingAnyFreePort()
                 .withArgument(GeneralServerFlag.LOG_LEVEL, logLevel)
                 .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
-                .withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,
-                        String.valueOf(androidBootstrapPort))
                 .build();
         service.start();
     }
@@ -93,7 +90,7 @@ public final class TestBase {
         if (Platform.isOnIOS()) {
             driver = new IOSDriver(service.getUrl(), capabilities);
         } else {
-            driver = new AndroidDriver<MobileElement>(service.getUrl(), capabilities);
+            driver = new AndroidDriver(service.getUrl(), capabilities);
         }
     }
 

@@ -24,7 +24,7 @@ public class AcquaintanceSteps implements En {
             String formattedAcquaintanceName = String.format("%s, %s", scenarioState.getLastName(), scenarioState.getFirstName());
 
             Helper.scrollDownFullScreenUntilCondition(ExpectedConditionWrapper.condition(webElement ->
-                    addAcquaintancePage.getVisibleAcquaintancesNames().contains(formattedAcquaintanceName)));
+                    addAcquaintancePage.isAcquaintanceWithNameDisplayed(formattedAcquaintanceName)));
             int indexOfAddedAcquaintance = addAcquaintancePage.getAcquaintancesNames().indexOf(formattedAcquaintanceName);
 
             addAcquaintancePage.tapOnAcquaintanceAtIndex(indexOfAddedAcquaintance);

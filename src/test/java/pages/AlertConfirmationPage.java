@@ -14,14 +14,14 @@ import java.util.List;
 public class AlertConfirmationPage {
 
     // region Identifiers
-    private static final String ANDROID_CONFIRM_BUTTON = "new UiSelector().resourceIdMatches(\".*id/button1.*\")";
+    private static final String ANDROID_CONFIRM_BUTTON = "button1";
     private static final String IOS_DELETE_BUTTONS = "Delete";
     // endregion
 
-    @AndroidFindBy(uiAutomator = ANDROID_CONFIRM_BUTTON)
+    @AndroidFindBy(id = ANDROID_CONFIRM_BUTTON)
     private MobileElement confirmButtonElement;
 
-    @iOSFindBy(accessibility = IOS_DELETE_BUTTONS)
+    @iOSFindBy(id = IOS_DELETE_BUTTONS)
     private List<MobileElement> deleteButtonElements;
 
     public AlertConfirmationPage(AppiumDriver driver) {
