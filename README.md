@@ -90,6 +90,6 @@ __NOTE__ In case you encounter connection problems with the Appium server, you s
 * Using iOS Simulator - https://www.youtube.com/watch?v=d1u58t-ko6s
 
 ## Cucumber
-* Tutorials - https://github.com/cucumber/cucumber/wiki/Tutorials-and-Related-Blog-Posts
+* Tutorials - https://docs.cucumber.io/community/blog-posts/
 * Fortech Internal Training - Mobile Automated Tests Presentation - https://drive.google.com/file/d/0BwIf0GcXSV41MTk1MFdtTTg0RmtXb0JiNGhaUWZqT0p2TDJN/view
 * [The Cucumber Book: Behaviour-Driven Development for Testers and Developers](https://www.amazon.com/Cucumber-Book-Behaviour-Driven-Development-Programmers/dp/1934356808) - Great resource for writing well structured Cucumber / Specflow tests (Specflow is just a .NET implementation of Cucumber)
