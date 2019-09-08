@@ -13,15 +13,10 @@ import java.util.List;
 
 public class AlertConfirmationPage {
 
-    // region Identifiers
-    private static final String ANDROID_CONFIRM_BUTTON = "button1";
-    private static final String IOS_DELETE_BUTTONS = "Delete";
-    // endregion
-
-    @AndroidFindBy(id = ANDROID_CONFIRM_BUTTON)
+    @AndroidFindBy(id = "android:id/button1")
     private MobileElement confirmButtonElement;
 
-    @iOSXCUITFindBy(id = IOS_DELETE_BUTTONS)
+    @iOSXCUITFindBy(id = "Delete")
     private List<MobileElement> deleteButtonElements;
 
     public AlertConfirmationPage(AppiumDriver driver) {
@@ -34,13 +29,11 @@ public class AlertConfirmationPage {
 
     private MobileElement getConfirmButtonElement() {
         if (Platform.isOnIOS()) {
-            Helper.waitUntil(webDriver -> deleteButtonElements.size() > 1,
-                    "Confirm button alert is not displayed", 60);
+            Helper.waitUntil(webDriver -> deleteButtonElements.size() > 1);
 
             return deleteButtonElements.get(1);
         } else {
-            Helper.waitUntil(webDriver -> confirmButtonElement.isDisplayed(),
-                    "Confirm button alert is not displayed", 60);
+            Helper.waitUntil(webDriver -> confirmButtonElement.isDisplayed());
 
             return confirmButtonElement;
         }
