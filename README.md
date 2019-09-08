@@ -1,5 +1,3 @@
-# android-ios-cucumber-example
-
 # Setup
 
 ## Setup appium
@@ -16,14 +14,19 @@
 
     `npm install -g appium`
 
-4. Use [WebDriverAgent](https://github.com/facebook/WebDriverAgent) to inspect the UI elements on iOS and [uiautomatorviewer](https://nishantverma.gitbooks.io/appium-for-android/content/exploring_uiautomatorviewer/) to inspect the elements on Android
-    * [Most Effective Lookup Strategy](https://github.com/facebook/WebDriverAgent/wiki/How-To-Achieve-The-Best-Lookup-Performance)
+4. Make sure you have Android Studio (and Android SDK) and Xcode installed
+
+5. Install carthage  (used for iOS):
+
+    `brew install carthage`
+
+6. Use [Appium Desktop](https://github.com/appium/appium-desktop) to inspect the UI elements
 
 Run the following commands to make sure you have the correct versions for:
    * `npm -v`
    * `node -v`
-   * `rvm -v` (Only if you use rvm)
    * `appium -v`
+   * `rvm -v` (Only if you use rvm)
 
  ## Setup automation project
 
@@ -44,11 +47,13 @@ Run the following commands to make sure you have the correct versions for:
 
  * Add the following to the bash_profile:
 
-    * export ANDROID_HOME={path to your android sdk}
-    * export JAVA_HOME=/Library/Java/JavaVirtualMachines/{jdk 1.8}/Contents/Home/
-    * export PATH=$PATH:$JAVA_HOME
+    * `export ANDROID_HOME={path to your android sdk}`
+    * `export JAVA_HOME=/Library/Java/JavaVirtualMachines/{jdk version}/Contents/Home/`
+    * `export PATH=${JAVA_HOME}/bin:$PATH`
+    
+4. Import the project in IntelliJ IDEA (using import from external model Gradle) and do a Gradle sync
 
-4. Install Cucumber for Java plugin
+5. Install Cucumber for Java plugin
 
  * From the menu, select IntelliJ IDEA -> Preferences
  * Go to __Plugins__
@@ -56,40 +61,41 @@ Run the following commands to make sure you have the correct versions for:
  * Select `Cucumber for Java` and click install
  * You will have to restart IntelliJ
 
-5. Duplicate all .properties files from __/src/test/resources/config/__ into __/src/test/resources/config/local/__ and update the new files with the values specific to your machine (usually the same way you've set up Appium UI app).
+6. Duplicate all .properties files from __/src/test/resources/config/__ into __/src/test/resources/config/local/__ and update the new files with the values specific to your machine (usually the same way you've set up Appium UI app).
 
-6. Run tests
+7. Run tests
 
  * Right-click on a test class/feature file and select __Run__
- * On the first try, the test will fail
- * The appropriate value for the "PLATFORM" key in the environment.properties should be added (Android or iOS; the default value is Android)
+ * Use the appropriate value for the `PLATFORM` key in the global.properties should be added (Android or iOS)
 
 __NOTE__ In case you encounter connection problems with the Appium server, you should update __rvm__ to the last version:
 
     `rvm get head`
 
-7. If you encounter any errors, you can use the appium doctor:
+8. If you encounter any errors, you can use the appium doctor:
 
     `npm install -g appium-doctor`
 
     `appium-doctor --[android/ios]`
 
-8. Some tests do not work when the keyboard is visible. You may need to disable the software keyboard on your emulator, by using:
+9. Some tests do not work when the keyboard is visible. You may need to disable the software keyboard on your emulator, by using:
 
 `adb shell settings put secure show_ime_with_hard_keyboard 0`
+
+10. On iOS due to the way we're querying the list of acquaintances you will notice performance issues when using `AcquaintNativeiOS.app` since the UITableView (the list) has many entries.
+This is by design - meant to highlight performance considerations. Feel free to point to `AcquaintNativeiOS-shortlist.app` to see the difference in impact.
 
 # Additional links
 ## Appium
 
-* Appium - http://appium.io/
-* Appium Discussion group - https://discuss.appium.io/
-* Java Client changelog - https://github.com/appium/java-client
-
-## Automation
-* Android - UI Automator - https://developer.android.com/reference/android/support/test/uiautomator/UiSelector.html
-* Using iOS Simulator - https://www.youtube.com/watch?v=d1u58t-ko6s
+* [Appium](http://appium.io/) 
+* [Appium Discussion Group](https://discuss.appium.io/) 
+* [Appium Java Client](https://github.com/appium/java-client)
+* [Appium Pro](https://appiumpro.com/) (will introduce you to all kinds of interesting and useful things you didn't know about Appium)
+* [How to Pick the Right Locator Strategy](https://appiumpro.com/editions/60)
+* [iOS Most Effective Lookup Strategy](https://github.com/facebook/WebDriverAgent/wiki/How-To-Achieve-The-Best-Lookup-Performance)
 
 ## Cucumber
-* Tutorials - https://docs.cucumber.io/community/blog-posts/
-* Fortech Internal Training - Mobile Automated Tests Presentation - https://drive.google.com/file/d/0BwIf0GcXSV41MTk1MFdtTTg0RmtXb0JiNGhaUWZqT0p2TDJN/view
+* [Cucumber Blog](https://docs.cucumber.io/community/blog-posts/)
+* [Fortech Internal Training - Mobile Automated Tests Presentation](https://drive.google.com/file/d/0BwIf0GcXSV41MTk1MFdtTTg0RmtXb0JiNGhaUWZqT0p2TDJN/view)
 * [The Cucumber Book: Behaviour-Driven Development for Testers and Developers](https://www.amazon.com/Cucumber-Book-Behaviour-Driven-Development-Programmers/dp/1934356808) - Great resource for writing well structured Cucumber / Specflow tests (Specflow is just a .NET implementation of Cucumber)
