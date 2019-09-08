@@ -12,7 +12,7 @@ public class AddAcquaintanceSteps implements En {
         Given("I fill in the required fields and tap on the Save button", () ->
                 fillInRequiredFieldsAndTapSave(scenarioState, Constants.FIRST_NAME, Constants.LAST_NAME));
 
-        And("^I set the first name to: (.*) and last name to: (.*) and tap the Save button$", (String firstName, String lastName) ->
+        And("I set the first name to: {string} and last name to: {string} and tap the Save button", (String firstName, String lastName) ->
                 fillInRequiredFieldsAndTapSave(scenarioState, firstName, lastName));
     }
 

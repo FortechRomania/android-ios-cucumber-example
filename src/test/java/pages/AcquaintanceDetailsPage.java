@@ -4,7 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import io.appium.java_client.pagefactory.iOSFindBy;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.Helper;
 import utils.Platform;
@@ -23,15 +23,15 @@ public class AcquaintanceDetailsPage {
     // endregion
 
     @AndroidFindBy(id = ANDROID_ACQUAINTANCE_EDIT_BUTTON)
-    @iOSFindBy(accessibility = IOS_ACQUAINTANCE_EDIT_BUTTON)
+    @iOSXCUITFindBy(accessibility = IOS_ACQUAINTANCE_EDIT_BUTTON)
     private MobileElement acquaintanceEditButtonElement;
 
     @AndroidFindBy(id = ANDROID_ACQUAINTANCE_DELETE_BUTTON)
-    @iOSFindBy(accessibility = IOS_ACQUAINTANCE_DELETE_BUTTON)
+    @iOSXCUITFindBy(accessibility = IOS_ACQUAINTANCE_DELETE_BUTTON)
     private MobileElement acquaintanceDeleteButtonElement;
 
     @AndroidFindBy(id = ANDROID_TOOLBAR)
-    @iOSFindBy(className = IOS_TOOLBAR)
+    @iOSXCUITFindBy(className = IOS_TOOLBAR)
     private MobileElement toolbarElement;
 
     public AcquaintanceDetailsPage(AppiumDriver driver) {

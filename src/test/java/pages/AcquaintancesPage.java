@@ -4,7 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import io.appium.java_client.pagefactory.iOSFindBy;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import utils.Helper;
@@ -12,7 +12,7 @@ import utils.Helper;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AcquaintancePage {
+public class AcquaintancesPage {
 
     // region Identifiers
     private static final String ANDROID_ADD_ACQUAINTANCE_BUTTON = "acquaintanceListFloatingActionButton";
@@ -23,14 +23,14 @@ public class AcquaintancePage {
     // endregion
 
     @AndroidFindBy(id = ANDROID_ADD_ACQUAINTANCE_BUTTON)
-    @iOSFindBy(accessibility = IOS_ADD_ACQUAINTANCE_BUTTON)
+    @iOSXCUITFindBy(accessibility = IOS_ADD_ACQUAINTANCE_BUTTON)
     private MobileElement addAcquaintanceButtonElement;
 
     @AndroidFindBy(id = ANDROID_ACQUAINTANCES_LIST)
-    @iOSFindBy(accessibility = IOS_ACQUAINTANCES_LIST)
+    @iOSXCUITFindBy(accessibility = IOS_ACQUAINTANCES_LIST)
     private List<MobileElement> acquaintanceElements;
 
-    public AcquaintancePage(AppiumDriver driver) {
+    public AcquaintancesPage(AppiumDriver driver) {
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
