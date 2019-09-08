@@ -4,7 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import io.appium.java_client.pagefactory.iOSFindBy;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.Helper;
 import utils.Platform;
@@ -21,7 +21,7 @@ public class AlertConfirmationPage {
     @AndroidFindBy(id = ANDROID_CONFIRM_BUTTON)
     private MobileElement confirmButtonElement;
 
-    @iOSFindBy(id = IOS_DELETE_BUTTONS)
+    @iOSXCUITFindBy(id = IOS_DELETE_BUTTONS)
     private List<MobileElement> deleteButtonElements;
 
     public AlertConfirmationPage(AppiumDriver driver) {

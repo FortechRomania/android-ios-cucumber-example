@@ -4,7 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import io.appium.java_client.pagefactory.iOSFindBy;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.Helper;
 
@@ -22,15 +22,15 @@ public class AddAcquaintancePage {
     // endregion
 
     @AndroidFindBy(id = ANDROID_FIRST_NAME_FIELD)
-    @iOSFindBy(accessibility = IOS_FIRST_NAME_FIELD)
+    @iOSXCUITFindBy(accessibility = IOS_FIRST_NAME_FIELD)
     private MobileElement firstNameFieldElement;
 
     @AndroidFindBy(id = ANDROID_LAST_NAME_FIELD)
-    @iOSFindBy(accessibility = IOS_LAST_NAME_FIELD)
+    @iOSXCUITFindBy(accessibility = IOS_LAST_NAME_FIELD)
     private MobileElement lastNameFieldElement;
 
     @AndroidFindBy(id = ANDROID_SAVE_BUTTON)
-    @iOSFindBy(accessibility = IOS_SAVE_BUTTON)
+    @iOSXCUITFindBy(accessibility = IOS_SAVE_BUTTON)
     private MobileElement saveButtonElement;
 
     public AddAcquaintancePage(AppiumDriver driver) {
