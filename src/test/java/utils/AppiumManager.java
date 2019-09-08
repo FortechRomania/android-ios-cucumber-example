@@ -9,19 +9,19 @@ import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-public final class TestBase {
-    private static TestBase instance;
+public final class AppiumManager {
+    private static AppiumManager instance;
 
     private AppiumDriverLocalService service;
     private AppiumDriver driver;
 
-    private TestBase() {
+    private AppiumManager() {
     }
 
-    public static TestBase getInstance() {
+    public static AppiumManager getInstance() {
         if (instance == null) {
-            synchronized (TestBase.class) {
-                instance = new TestBase();
+            synchronized (AppiumManager.class) {
+                instance = new AppiumManager();
             }
         }
 
@@ -29,18 +29,10 @@ public final class TestBase {
     }
 
     public AppiumDriver getDriver() {
-        if (service == null) {
-            startService();
-        }
-
-        if (driver == null) {
-            startDriver();
-        }
-
         return driver;
     }
 
-    public void launchAppWithCleanData() {
+    public void launchAppWithFreshInstall() {
         if (service == null) {
             startService();
         }
@@ -63,11 +55,10 @@ public final class TestBase {
     }
 
     private void startService() {
-        String logLevel = PropertiesManager.getInstance().getAppiumLogLevel();
+        String logLevel = ConfigurationManager.getInstance().getAppiumLogLevel();
 
         service = new AppiumServiceBuilder().usingAnyFreePort()
                 .withArgument(GeneralServerFlag.LOG_LEVEL, logLevel)
-                .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
                 .build();
         service.start();
     }
@@ -85,7 +76,7 @@ public final class TestBase {
     }
 
     private void startDriver() {
-        DesiredCapabilities capabilities = PropertiesManager.getInstance().getDesiredCapabilities();
+        DesiredCapabilities capabilities = ConfigurationManager.getInstance().getDesiredCapabilities();
 
         if (Platform.isOnIOS()) {
             driver = new IOSDriver(service.getUrl(), capabilities);

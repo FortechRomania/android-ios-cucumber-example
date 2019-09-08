@@ -14,20 +14,12 @@ import java.util.stream.Collectors;
 
 public class AcquaintancesPage {
 
-    // region Identifiers
-    private static final String ANDROID_ADD_ACQUAINTANCE_BUTTON = "acquaintanceListFloatingActionButton";
-    private static final String IOS_ADD_ACQUAINTANCE_BUTTON = "Add";
-
-    private static final String ANDROID_ACQUAINTANCES_LIST = "nameTextView";
-    private static final String IOS_ACQUAINTANCES_LIST = "NameLabel";
-    // endregion
-
-    @AndroidFindBy(id = ANDROID_ADD_ACQUAINTANCE_BUTTON)
-    @iOSXCUITFindBy(accessibility = IOS_ADD_ACQUAINTANCE_BUTTON)
+    @AndroidFindBy(id = "acquaintanceListFloatingActionButton")
+    @iOSXCUITFindBy(accessibility = "Add")
     private MobileElement addAcquaintanceButtonElement;
 
-    @AndroidFindBy(id = ANDROID_ACQUAINTANCES_LIST)
-    @iOSXCUITFindBy(accessibility = IOS_ACQUAINTANCES_LIST)
+    @AndroidFindBy(id = "nameTextView")
+    @iOSXCUITFindBy(accessibility = "NameLabel")
     private List<MobileElement> acquaintanceElements;
 
     public AcquaintancesPage(AppiumDriver driver) {
@@ -60,12 +52,10 @@ public class AcquaintancesPage {
     }
 
     public void waitUntilListIsNotEmpty() {
-        Helper.waitUntil(webDriver -> !acquaintanceElements.isEmpty(),
-                "Acquaintances list is empty");
+        Helper.waitUntil(webDriver -> !acquaintanceElements.isEmpty());
     }
 
     public void waitUntilPageLoads() {
-        Helper.waitUntil(webDriver -> addAcquaintanceButtonElement.isDisplayed(),
-                "Acquaintances page has not loaded");
+        Helper.waitUntil(webDriver -> addAcquaintanceButtonElement.isDisplayed());
     }
 }

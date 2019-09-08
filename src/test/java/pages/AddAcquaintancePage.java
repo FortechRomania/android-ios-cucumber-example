@@ -10,27 +10,16 @@ import utils.Helper;
 
 public class AddAcquaintancePage {
 
-    // region Identifiers
-    private static final String ANDROID_FIRST_NAME_FIELD = "firstNameField";
-    private static final String IOS_FIRST_NAME_FIELD = "_FirstNameField";
-
-    private static final String ANDROID_LAST_NAME_FIELD = "lastNameField";
-    private static final String IOS_LAST_NAME_FIELD = "_LastNameField";
-
-    private static final String ANDROID_SAVE_BUTTON = "acquaintanceSaveButton";
-    private static final String IOS_SAVE_BUTTON = "Save";
-    // endregion
-
-    @AndroidFindBy(id = ANDROID_FIRST_NAME_FIELD)
-    @iOSXCUITFindBy(accessibility = IOS_FIRST_NAME_FIELD)
+    @AndroidFindBy(id = "firstNameField")
+    @iOSXCUITFindBy(accessibility = "_FirstNameField")
     private MobileElement firstNameFieldElement;
 
-    @AndroidFindBy(id = ANDROID_LAST_NAME_FIELD)
-    @iOSXCUITFindBy(accessibility = IOS_LAST_NAME_FIELD)
+    @AndroidFindBy(id = "lastNameField")
+    @iOSXCUITFindBy(accessibility = "_LastNameField")
     private MobileElement lastNameFieldElement;
 
-    @AndroidFindBy(id = ANDROID_SAVE_BUTTON)
-    @iOSXCUITFindBy(accessibility = IOS_SAVE_BUTTON)
+    @AndroidFindBy(id = "acquaintanceSaveButton")
+    @iOSXCUITFindBy(accessibility = "Save")
     private MobileElement saveButtonElement;
 
     public AddAcquaintancePage(AppiumDriver driver) {
@@ -49,8 +38,7 @@ public class AddAcquaintancePage {
     }
 
     public void waitUntilPageLoads() {
-        Helper.waitUntil(webDriver -> firstNameFieldElement.isDisplayed(),
-                "Add acquaintance screen page has not loaded");
+        Helper.waitUntil(webDriver -> firstNameFieldElement.isDisplayed());
     }
 
 }

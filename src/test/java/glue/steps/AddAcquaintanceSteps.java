@@ -4,7 +4,7 @@ import cucumber.api.java8.En;
 import fixture.persistence.ScenarioState;
 import pages.AddAcquaintancePage;
 import utils.Constants;
-import utils.TestBase;
+import utils.AppiumManager;
 
 public class AddAcquaintanceSteps implements En {
 
@@ -17,7 +17,7 @@ public class AddAcquaintanceSteps implements En {
     }
 
     private void fillInRequiredFieldsAndTapSave(ScenarioState scenarioState, String firstName, String lastName) {
-        AddAcquaintancePage addAcquaintancePage = new AddAcquaintancePage(TestBase.getInstance().getDriver());
+        AddAcquaintancePage addAcquaintancePage = new AddAcquaintancePage(AppiumManager.getInstance().getDriver());
 
         scenarioState.setFirstName(firstName);
         scenarioState.setLastName(lastName);

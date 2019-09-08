@@ -1,10 +1,10 @@
 package utils;
 
-import cucumber.api.Scenario;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import io.cucumber.core.api.Scenario;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
@@ -42,19 +42,14 @@ public final class Helper {
         }
     }
 
-    public static void waitUntil(ExpectedCondition<?> condition, String message) {
-        waitUntil(condition, message, DURATION_FOR_ELEMENT_TO_LOAD_SECONDS);
+    public static void waitUntil(ExpectedCondition<?> condition) {
+        waitUntil(condition, DURATION_FOR_ELEMENT_TO_LOAD_SECONDS);
     }
 
-    public static void waitUntil(ExpectedCondition<?> condition, String message, int timeout) {
+    public static void waitUntil(ExpectedCondition<?> condition, int timeout) {
         WebDriverWait wait = new WebDriverWait(getDriver(), timeout);
 
-        try {
-            wait.ignoring(NoSuchElementException.class)
-                    .until(condition);
-        } catch (TimeoutException exception) {
-            Assert.fail(message);
-        }
+        wait.ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class).until(condition);
     }
 
     public static void takeScreenshotForScenario(Scenario scenario) throws WebDriverException {
@@ -95,12 +90,8 @@ public final class Helper {
         int scrollStart = (int) (dimensions.getHeight() * heightMultiplier);
         int scrollEnd = 0;
 
-        try {
-            final int swipeDurationInMillis = 1200;
-            swipe(centerX, scrollStart, centerX, scrollEnd, swipeDurationInMillis);
-        } catch (WebDriverException webDriverException) {
-            webDriverException.printStackTrace();
-        }
+        final int swipeDurationInMillis = 1200;
+        swipe(centerX, scrollStart, centerX, scrollEnd, swipeDurationInMillis);
     }
 
     private static Dimension getWindowSize() {
@@ -117,7 +108,7 @@ public final class Helper {
     }
 
     private static AppiumDriver getDriver() {
-        return TestBase.getInstance().getDriver();
+        return AppiumManager.getInstance().getDriver();
     }
 
     private static void waitForElementToLoadBy(By by) {

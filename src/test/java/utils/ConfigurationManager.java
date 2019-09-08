@@ -7,7 +7,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.io.IOException;
 import java.util.Properties;
 
-public final class PropertiesManager {
+public final class ConfigurationManager {
     private static final String APPIUM_LOG_LEVEL = "APPIUM_LOG_LEVEL";
 
     private static final String DEVICE_NAME = "DEVICE_NAME";
@@ -17,27 +17,24 @@ public final class PropertiesManager {
 
     private static final String PLATFORM = "PLATFORM";
 
-    private static PropertiesManager instance;
+    private static ConfigurationManager instance;
     private final Properties properties;
 
-    private PropertiesManager() {
+    private ConfigurationManager() {
         properties = new Properties();
 
         try {
             loadLocalProperties();
-        } catch (Exception e1) {
-            e1.printStackTrace();
-            try {
-                loadNonLocalProperties();
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
+            System.out.println("Using local properties");
+        } catch (Exception ex1) {
+            loadNonLocalProperties();
+            System.out.println("Using non - local properties");
         }
     }
 
-    public static PropertiesManager getInstance() {
+    public static ConfigurationManager getInstance() {
         if (instance == null) {
-            instance = new PropertiesManager();
+            instance = new ConfigurationManager();
         }
 
         return instance;
@@ -54,16 +51,14 @@ public final class PropertiesManager {
     DesiredCapabilities getDesiredCapabilities() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
-        String deviceName = getValueForKey(DEVICE_NAME);
-
         capabilities.setCapability(MobileCapabilityType.APP, getValueForKey(APP_PATH));
-        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
+        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, getValueForKey(DEVICE_NAME));
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, getValueForKey(PLATFORM_NAME));
         capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, getPlatformVersion());
-        capabilities.setCapability(MobileCapabilityType.CLEAR_SYSTEM_FILES, true);
+        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, isOnIOS() ? "XCUITest" : "UIAutomator2");
 
-        final int fiveMinutesInSeconds = 300;
-        capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, fiveMinutesInSeconds);
+        final int newCommandTimeoutInSecods = 300;
+        capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, newCommandTimeoutInSecods);
 
         return capabilities;
     }
@@ -80,8 +75,8 @@ public final class PropertiesManager {
         return properties.getProperty(key);
     }
 
-    private void loadLocalProperties() throws IOException {
-        loadPropertiesWithPath("config/local/environment.properties");
+    private void loadLocalProperties() {
+        loadPropertiesWithPath("config/local/global.properties");
 
         if (isOnIOS()) {
             loadPropertiesWithPath("config/local/ios.properties");
@@ -90,8 +85,8 @@ public final class PropertiesManager {
         }
     }
 
-    private void loadNonLocalProperties() throws IOException {
-        loadPropertiesWithPath("config/environment.properties");
+    private void loadNonLocalProperties() {
+        loadPropertiesWithPath("config/global.properties");
 
         if (isOnIOS()) {
             loadPropertiesWithPath("config/ios.properties");
@@ -100,7 +95,11 @@ public final class PropertiesManager {
         }
     }
 
-    private void loadPropertiesWithPath(String path) throws IOException {
-        properties.load(PropertiesManager.class.getClassLoader().getResourceAsStream(path));
+    private void loadPropertiesWithPath(String path) {
+        try {
+            properties.load(ConfigurationManager.class.getClassLoader().getResourceAsStream(path));
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 }

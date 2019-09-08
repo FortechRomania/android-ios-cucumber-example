@@ -11,27 +11,16 @@ import utils.Platform;
 
 public class AcquaintanceDetailsPage {
 
-    // region Identifiers
-    private static final String ANDROID_ACQUAINTANCE_EDIT_BUTTON = "acquaintanceEditButton";
-    private static final String IOS_ACQUAINTANCE_EDIT_BUTTON = "Edit";
-
-    private static final String ANDROID_ACQUAINTANCE_DELETE_BUTTON = "acquaintanceDeleteButton";
-    private static final String IOS_ACQUAINTANCE_DELETE_BUTTON = "Delete";
-
-    private static final String ANDROID_TOOLBAR = "toolbar";
-    private static final String IOS_TOOLBAR = "XCUIElementTypeNavigationBar";
-    // endregion
-
-    @AndroidFindBy(id = ANDROID_ACQUAINTANCE_EDIT_BUTTON)
-    @iOSXCUITFindBy(accessibility = IOS_ACQUAINTANCE_EDIT_BUTTON)
+    @AndroidFindBy(id = "acquaintanceEditButton")
+    @iOSXCUITFindBy(accessibility = "Edit")
     private MobileElement acquaintanceEditButtonElement;
 
-    @AndroidFindBy(id = ANDROID_ACQUAINTANCE_DELETE_BUTTON)
-    @iOSXCUITFindBy(accessibility = IOS_ACQUAINTANCE_DELETE_BUTTON)
+    @AndroidFindBy(id = "acquaintanceDeleteButton")
+    @iOSXCUITFindBy(accessibility = "Delete")
     private MobileElement acquaintanceDeleteButtonElement;
 
-    @AndroidFindBy(id = ANDROID_TOOLBAR)
-    @iOSXCUITFindBy(className = IOS_TOOLBAR)
+    @AndroidFindBy(id = "toolbar")
+    @iOSXCUITFindBy(className = "XCUIElementTypeNavigationBar")
     private MobileElement toolbarElement;
 
     public AcquaintanceDetailsPage(AppiumDriver driver) {
@@ -53,8 +42,7 @@ public class AcquaintanceDetailsPage {
     }
 
     public void waitUntilPageLoads() {
-        Helper.waitUntil(webDriver -> !getToolbarTitleText().isEmpty(),
-                "Acquaintance details page has not loaded");
+        Helper.waitUntil(webDriver -> !getToolbarTitleText().isEmpty());
     }
 
     private String getToolbarTitleText() {
